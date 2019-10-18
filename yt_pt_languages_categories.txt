@@ -1,0 +1,77 @@
+# Adapted from Prismedia https://git.lecygnenoir.info/LecygneNoir/prismedia
+# currently this does nothing. It is for user reference when setting peertube categories and languages in the config.
+# set the category and language in each channel config to the value corresponding to the language or category here.
+
+### CATEGORIES ###
+YOUTUBE_CATEGORY = {
+    "music": 10,
+    "films": 1,
+    "vehicles": 2,
+    "sport": 17,
+    "travels": 19,
+    "gaming": 20,
+    "people": 22,
+    "comedy": 23,
+    "entertainment": 24,
+    "news": 25,
+    "how to": 26,
+    "education": 27,
+    "activism": 29,
+    "science & technology": 28,
+    "science": 28,
+    "technology": 28,
+    "animals": 15
+}
+# for now, use these values in the config file corresponding to the category you want
+PEERTUBE_CATEGORY = {
+    "music": 1,
+    "films": 2,
+    "vehicles": 3,
+    "sport": 5,
+    "travels": 6,
+    "gaming": 7,
+    "people": 8,
+    "comedy": 9,
+    "entertainment": 10,
+    "news": 11,
+    "how to": 12,
+    "education": 13,
+    "activism": 14,
+    "science & technology": 15,
+    "science": 15,
+    "technology": 15,
+    "animals": 16
+}
+
+### LANGUAGES ###
+YOUTUBE_LANGUAGE = {
+    "arabic": 'ar',
+    "english": 'en',
+    "french": 'fr',
+    "german": 'de',
+    "hindi": 'hi',
+    "italian": 'it',
+    "japanese": 'ja',
+    "korean": 'ko',
+    "mandarin": 'zh-CN',
+    "portuguese": 'pt-PT',
+    "punjabi": 'pa',
+    "russian": 'ru',
+    "spanish": 'es'
+}
+# for now, use these values in the config for the language you want
+PEERTUBE_LANGUAGE = {
+    "arabic": "ar",
+    "english": "en",
+    "french": "fr",
+    "german": "de",
+    "hindi": "hi",
+    "italian": "it",
+    "japanese": "ja",
+    "korean": "ko",
+    "mandarin": "zh",
+    "portuguese": "pt",
+    "punjabi": "pa",
+    "russian": "ru",
+    "spanish": "es"
+}
