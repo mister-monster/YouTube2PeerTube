@@ -42,7 +42,7 @@ If <delete_videos> is set to True, videos and metadata will be deleted from the 
 
 To run the bot, simply run youtube2peertube.py. The bot will run indefinitely until stopped.
 
-If you run it inside of a virtual environment, all dependencies are in venv. If you run it outside of a virtual environment you will need to make sure all dependencies are met.
+You will need to make sure all dependencies are met.
 
 The first time a channel is found in the config, the most recent videos returned by the youtube RSS endpoint are mirrored, and a new entry is added to channels_timestamps.csv with the timestamp of the last video. Subsequently each channel is checked for an entry in channels_timestamps.csv and only videos later than the last timestamp for the channel's entry are mirrored. The tool decides if it is the first time a channel is found based on whether it has an entry in channels_timestamps.csv. It is designed this way so that the tool can be stopped and restarted without attempting to upload duplicate videos when restarted.
 
