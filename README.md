@@ -81,11 +81,17 @@ Thanks to the mps-youtube project https://github.com/mps-youtube for pafy, and t
 If you find this tool useful and would like to donate, the following donation options are available:
 
 XMR: 4AeufJrhpQn7LGW5dZ9tH4FFAtfmRwEDvhYrH5GQDbNxQ9VyWKmdycb5naWcvRTqbm3fkyqrDi23x453stDKzu5YVgPfcbj
+
 BTC legacy: 141HaN7bq781BaB2PRP8mkUndebZXjxiFU
+
 BTC segwit compatible: bc1qx2fa50av3j9hrjnszsnpflmtxqnz08936mq4xx
+
 BCH: qzr9gk7tv274x9u9sft243m729zrjnq0cvpzlelapt
+
 LTC: ltc1qa8re5eh2dklzfhg2x03tswsr5wae68qfxjzacd
+
 ETH: 0x18304c5ed37dacefc920b291f39b06545b5fc258
+
 ETC: 0xee3947eec103346ed42302221d99027a59bfa061
 
 Buy me a cup of coffee!
