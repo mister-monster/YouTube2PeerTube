@@ -1,7 +1,7 @@
 # This is a TOML document
 # This document is a configuration file for YouTube2PeerTube mirror bot
 [global]
-video_download_dir = "/path/to/download/directory" # must be absolute path and user writable directory
+video_download_dir = "/path/to/download/directory/" # must be absolute path and user writable directory
 delete_videos = "false" # Delete videos and metadata after upload to peertube, lowercase string
 poll_frequency = 180 # poll frequency in minutes
 
