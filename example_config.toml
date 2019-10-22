@@ -2,6 +2,7 @@
 # This document is a configuration file for YouTube2PeerTube mirror bot
 [global]
 video_download_dir = "/path/to/download/directory/" # must be absolute path and user writable directory
+use_pt_http_import = "false" # Peertube supports sending HTTP links to videos instead of downloading and uploading them. Use this option if you do not want to archive videos and have limited bandwidth. Setting this to true negates delete_videos as videos will not be downloaded, and disables transcoding.
 delete_videos = "false" # Delete videos and metadata after upload to peertube, lowercase string
 poll_frequency = 180 # poll frequency in minutes
 
