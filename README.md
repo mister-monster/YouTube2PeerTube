@@ -72,8 +72,6 @@ Any time the configuration is changed, the bot must be restarted.
 
 - Transcoding might make the tool more useful, changing the resolution, codec and container of a video might be something to consider implementing.
 
-- Optionally use the PeerTube API's http import functionality when not saving videos.
-
 See open issues for more details.
 
 Please open issues if you find any problems or if you have a feature request. Pull requests are always welcome, however feature requests and pull requests will not be implemented if they are out of the scope of the project or if they cause issues with other existing features.
