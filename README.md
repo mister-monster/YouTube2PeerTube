@@ -28,9 +28,13 @@ It also contains heavily modified components from prismedia https://git.lecygnen
 
 ## Configuration
 
+IMPORTANT: If you are updating this tool be sure to check the new example configuration against your configuration, as some parameters may be added or removed or otherwise changed.
+
 An example configuration file is found at example_config.toml. Copy this to config.toml and replace the fields with your information, and add channels as necessary.
 
 The configuration file is found at config.toml. It allows you to configure the poll frequency for all YouTube channels, download directory for videos and metadata, whether to keep the videos after upload (for archiving purposes) as well as per channel options such as YouTube channel info, corresponding PeerTube channel info and auth, and appendable tags and descriptions.
+
+If you set <use_pt_http_import> to "true", the bot will not download videos at all. It will simply pass the YT video URL to PeerTube directly. Because of this, if you choose to use this option, you will not be able to locally transcode videos, nor will you be able to archive them.
 
 Each channel is capable of mirroring to a different PeerTube account and instance, and is capable of appending tags and description information on a per channel basis.
 
@@ -81,17 +85,11 @@ Thanks to the mps-youtube project https://github.com/mps-youtube for pafy, and t
 If you find this tool useful and would like to donate, the following donation options are available:
 
 XMR: 4AeufJrhpQn7LGW5dZ9tH4FFAtfmRwEDvhYrH5GQDbNxQ9VyWKmdycb5naWcvRTqbm3fkyqrDi23x453stDKzu5YVgPfcbj
-
 BTC legacy: 141HaN7bq781BaB2PRP8mkUndebZXjxiFU
-
 BTC segwit compatible: bc1qx2fa50av3j9hrjnszsnpflmtxqnz08936mq4xx
-
 BCH: qzr9gk7tv274x9u9sft243m729zrjnq0cvpzlelapt
-
 LTC: ltc1qa8re5eh2dklzfhg2x03tswsr5wae68qfxjzacd
-
 ETH: 0x18304c5ed37dacefc920b291f39b06545b5fc258
-
 ETC: 0xee3947eec103346ed42302221d99027a59bfa061
 
 Buy me a cup of coffee!
