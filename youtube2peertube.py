@@ -139,18 +139,17 @@ def get_pt_channel_id(channel_conf):
     channel_id = returned_json["id"]
     return channel_id
 
+def get_file(file_path):
+    mimetypes.init()
+    return (path.basename(file_path), open(path.abspath(file_path), 'rb'),
+            mimetypes.types_map[path.splitext(file_path)[1]])
+
 def upload_to_pt(dl_dir, channel_conf, e, access_token, thumb_extension):
     # Adapted from Prismedia https://git.lecygnenoir.info/LecygneNoir/prismedia
     pt_api = channel_conf["peertube_instance"] + "/api/v1"
     video_file = dl_dir + channel_conf["name"] + "/" + e["yt_videoid"] + "." + \
                  channel_conf["preferred_extension"]
     thumb_file = dl_dir + channel_conf["name"] + "/" + e["yt_videoid"] + "." + thumb_extension
-
-    def get_file(file_path):
-        mimetypes.init()
-        return (path.basename(file_path), open(path.abspath(file_path), 'rb'),
-                mimetypes.types_map[path.splitext(file_path)[1]])
-
     description = channel_conf["description_prefix"] + "\n\n" + e["summary"] + "\n\n" + channel_conf["description_suffix"]
     channel_id = str(get_pt_channel_id(channel_conf))
     # We need to transform fields into tuple to deal with tags as
@@ -185,6 +184,45 @@ def upload_to_pt(dl_dir, channel_conf, e, access_token, thumb_extension):
     }
     print(requests.post(pt_api + "/videos/upload", data=multipart_data, headers=headers).content)
 
+def pt_http_import(dl_dir, channel_conf, e, access_token, thumb_extension):
+    # Adapted from Prismedia https://git.lecygnenoir.info/LecygneNoir/prismedia
+    pt_api = channel_conf["peertube_instance"] + "/api/v1"
+    yt_video_url = e["link"]
+    thumb_file = dl_dir + channel_conf["name"] + "/" + e["yt_videoid"] + "." + thumb_extension
+    description = channel_conf["description_prefix"] + "\n\n" + e["summary"] + "\n\n" + channel_conf["description_suffix"]
+    channel_id = str(get_pt_channel_id(channel_conf))
+    # We need to transform fields into tuple to deal with tags as
+    # MultipartEncoder does not support list refer
+    # https://github.com/requests/toolbelt/issues/190 and
+    # https://github.com/requests/toolbelt/issues/205
+    fields = [
+        ("name", e["title"]),
+        ("licence", "1"),
+        ("description", description),
+        ("nsfw", channel_conf["nsfw"]),
+        ("channelId", channel_id),
+        ("originallyPublishedAt", e["published"]),
+        ("category", channel_conf["pt_channel_category"]),
+        ("lanmguage", channel_conf["default_lang"]),
+        ("privacy", str(channel_conf["pt_privacy"])),
+        ("commentsEnabled", channel_conf["comments_enabled"]),
+        ("targetUrl", yt_video_url),
+        ("thumbnailfile", get_file(thumb_file)),
+        ("previewfile", get_file(thumb_file)),
+        ("waitTranscoding", 'false')
+    ]
+
+    if channel_conf["pt_tags"] != "":
+        fields.append(("tags", "[" + channel_conf["pt_tags"] + "]"))
+    else:
+        print("you have no tags in your configuration file for this channel")
+    multipart_data = MultipartEncoder(fields)
+    headers = {
+        'Content-Type': multipart_data.content_type,
+        'Authorization': "Bearer " + access_token
+    }
+    print(requests.post(pt_api + "/videos/imports", data=multipart_data, headers=headers).content)
+
 def run_steps(conf):
     # TODO: logging
     channel = conf["channel"]
@@ -194,6 +232,12 @@ def run_steps(conf):
         delete_videos = True
     else:
         delete_videos = False
+    # The following enables the deletion of thumbnails, videos are not downloaded at all
+    if conf["global"]["use_pt_http_import"] == "true":
+        delete_videos = True
+        use_pt_http_import = True
+    else:
+        use_pt_http_import = False
     dl_dir = global_conf["video_download_dir"]
     if not path.exists(dl_dir):
         mkdir(dl_dir)
@@ -208,9 +252,10 @@ def run_steps(conf):
                 mkdir(dl_dir + "/" + channel_conf["name"])
             # download videos, metadata and thumbnails from youtube
             for item in queue:
-                print("downloading " + item["yt_videoid"] + " from YouTube...")
-                download_yt_video(item, dl_dir, channel_conf)
-                print("done.")
+                if not use_pt_http_import:
+                    print("downloading " + item["yt_videoid"] + " from YouTube...")
+                    download_yt_video(item, dl_dir, channel_conf)
+                    print("done.")
                 # TODO: download closest to config specified resolution instead of best resolution
                 thumb_extension = save_thumbnail(item, dl_dir, channel_conf)
                 # only save metadata to text file if archiving videos
@@ -221,11 +266,15 @@ def run_steps(conf):
             access_token = get_pt_auth(channel_conf)
             # upload videos, metadata and thumbnails to peertube
             for item in queue:
-                print("uploading " + item["yt_videoid"] + " to Peertube...")
-                upload_to_pt(dl_dir, channel_conf, item, access_token, thumb_extension)
-                print("done.")
+                if not use_pt_http_import:
+                    print("uploading " + item["yt_videoid"] + " to Peertube...")
+                    upload_to_pt(dl_dir, channel_conf, item, access_token, thumb_extension)
+                    print("done.")
+                else:
+                    print("mirroring " + item["link"] + " to Peertube using HTTP import...")
+                    pt_http_import(dl_dir, channel_conf, item, access_token, thumb_extension)
             if delete_videos:
-                print("deleting videos...")
+                print("deleting videos and/or thumbnails...")
                 rmtree(dl_dir + "/" + channel_conf["name"], ignore_errors=True)
                 print("done")
         channel_counter += 1
