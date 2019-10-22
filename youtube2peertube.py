@@ -273,6 +273,7 @@ def run_steps(conf):
                 else:
                     print("mirroring " + item["link"] + " to Peertube using HTTP import...")
                     pt_http_import(dl_dir, channel_conf, item, access_token, thumb_extension)
+                    print("done.")
             if delete_videos:
                 print("deleting videos and/or thumbnails...")
                 rmtree(dl_dir + "/" + channel_conf["name"], ignore_errors=True)
