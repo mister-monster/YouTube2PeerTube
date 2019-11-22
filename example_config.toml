@@ -1,26 +1,28 @@
 # This is a TOML document
-# This document is a configuration file for YouTube2PeerTube mirror bot
+# This document is a configuration file for yt2pt (Youtube to Peertube) mirror bot
+# copy this file into the same directory and rename it "config.toml" and then modify config.toml as necessary.
+
+# These are global configuration options, they apply to the bot as a whole and therefore all channels.
 [global]
 video_download_dir = "/path/to/download/directory/" # must be absolute path and user writable directory
-use_pt_http_import = "false" # Peertube supports sending HTTP links to videos instead of downloading and uploading them. Use this option if you do not want to archive videos and have limited bandwidth. Setting this to true negates delete_videos as videos will not be downloaded, and disables transcoding.
-delete_videos = "false" # Delete videos and metadata after upload to peertube, lowercase string
+use_pt_http_import = "true" # Peertube supports sending HTTP links to videos instead of downloading and uploading them. Use this option if you do not want to archive videos and have limited bandwidth. Setting this to true negates delete_videos as videos will not be downloaded, and disables transcoding.
+delete_videos = "true" # Delete videos and metadata after upload to peertube, lowercase string
 poll_frequency = 180 # poll frequency in minutes
 
 # For every channel, a new [channel.x] entry must be added in [channel] in sequential numerical order starting at 0
-# Each [channel] entry must have a name (does not have to mach YT channel name),
-# YT channel ID, peertube instance URL, channel, username, password.
 # If you do not wish to append tags or descriptions then leave the quotes empty for those fields.
+# All other fields must have values.
 [channel]
     [channel.0]
-    name = "channel_name"
+    name = "channel_name" # name of the channel, does not have to match YT or PT channel names
     channel_id = "channel ID" # YT channel ID at the end of the url youtube.com/channel/<channel_id>
     peertube_instance = "https://peertube.url" # URL of peertube instance
     peertube_channel = "peertube_channel" # peertube channel handle to upload video to
     peertube_username = "user" # peertube username
     peertube_password = "password" # peertube password WARNING this file needs to be secure
-    pt_channel_category = "10" # category of channel contents. see yt_pt_languages_categories.txt for categories
-    pt_tags = "" # tags to be added to uploaded video in Peertube, comma separated, max 5, between 2 and 30 char each (incomplete)
-    default_lang = "en" # language of the channel, see yt_pt_languages_categories.txt for languages
+    pt_channel_category = "entertainment" # category of channel contents. see pt_languages_categories.txt for categories
+    pt_tags = "" # tags to be added to uploaded video in Peertube, comma separated, max 5, between 2 and 30 char each
+    default_lang = "english" # default language if YT channel does not have a language, see pt_languages.txt for available languages
     nsfw = "false" # lowercase string, is this channel NSFW?
     comments_enabled = "true" # lowercase string, do you want comments enabled in this channel?
     pt_privacy = 1 # 1 = public, 2 = unlisted, 3 = private, privacy for entire channel, default public
@@ -30,15 +32,15 @@ poll_frequency = 180 # poll frequency in minutes
     max_resolution = "360" # maximum resolution of videos to download (incomplete)
 
     [channel.1]
-    name = "channel_name"
+    name = "channel_name" # name of the channel, does not have to match YT or PT channel names
     channel_id = "channel ID" # YT channel ID at the end of the url youtube.com/channel/<channel_id>
     peertube_instance = "https://peertube.url" # URL of peertube instance
     peertube_channel = "peertube_channel" # peertube channel handle to upload video to
     peertube_username = "user" # peertube username
     peertube_password = "password" # peertube password WARNING this file needs to be secure
-    pt_channel_category = "10" # category of channel contents. see yt_pt_languages_categories.txt for categories
-    pt_tags = "" # tags to be added to uploaded video in Peertube, comma separated, max 5, between 2 and 30 char each (incomplete)
-    default_lang = "en" # language of the channel, see yt_pt_languages_categories.txt for languages
+    pt_channel_category = "entertainment" # category of channel contents. see pt_languages_categories.txt for categories
+    pt_tags = "" # tags to be added to uploaded video in Peertube, comma separated, max 5, between 2 and 30 char each
+    default_lang = "english" # default language if YT channel does not have a language, see pt_languages.txt for available languages
     nsfw = "false" # lowercase string, is this channel NSFW?
     comments_enabled = "true" # lowercase string, do you want comments enabled in this channel?
     pt_privacy = 1 # 1 = public, 2 = unlisted, 3 = private, privacy for entire channel, default public
@@ -48,19 +50,22 @@ poll_frequency = 180 # poll frequency in minutes
     max_resolution = "360" # maximum resolution of videos to download (incomplete)
 
     [channel.2]
-    name = "channel_name"
+    name = "channel_name" # name of the channel, does not have to match YT or PT channel names
     channel_id = "channel ID" # YT channel ID at the end of the url youtube.com/channel/<channel_id>
     peertube_instance = "https://peertube.url" # URL of peertube instance
     peertube_channel = "peertube_channel" # peertube channel handle to upload video to
     peertube_username = "user" # peertube username
     peertube_password = "password" # peertube password WARNING this file needs to be secure
-    pt_channel_category = "10" # category of channel contents. see yt_pt_languages_categories.txt for categories
-    pt_tags = "" # tags to be added to uploaded video in Peertube, comma separated, max 5, between 2 and 30 char each (incomplete)
-    default_lang = "en" # language of the channel, see yt_pt_languages_categories.txt for languages
+    pt_channel_category = "entertainment" # category of channel contents. see pt_languages_categories.txt for categories
+    pt_tags = "" # tags to be added to uploaded video in Peertube, comma separated, max 5, between 2 and 30 char each
+    default_lang = "english" # default language if YT channel does not have a language, see pt_languages.txt for available languages
     nsfw = "false" # lowercase string, is this channel NSFW?
     comments_enabled = "true" # lowercase string, do you want comments enabled in this channel?
     pt_privacy = 1 # 1 = public, 2 = unlisted, 3 = private, privacy for entire channel, default public
     description_prefix = "" # This description will be added to the beginning of the YT description
     description_suffix = "" # This description will be appended to the end of the YT description
+    preferred_extension = "mp4" # preferred extension of download and upload
+    max_resolution = "360" # maximum resolution of videos to download (incomplete)
+
     preferred_extension = "mp4" # preferred extension of download and upload
     max_resolution = "360" # maximum resolution of videos to download (incomplete)
