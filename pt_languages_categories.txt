@@ -1,0 +1,11 @@
+These are the language options that Peertube supports:
+arabic, english, french, german, hindi, italian, japanese, korean, mandarin, portuguese, punjabi, russian, spanish
+
+enter one of them in the config.
+
+You can also use these values in the config if you prefer:
+ar, en, fr, de, hi, it, ja, ko, zh, pt, pa, ru, es
+
+These are the categories Peertube supports:
+
+music, films, vehicles, sport, travels, gaming, people, comedy, entertainment, news, how to, education, science & technology, animals
