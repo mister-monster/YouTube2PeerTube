@@ -66,6 +66,3 @@ poll_frequency = 180 # poll frequency in minutes
     description_suffix = "" # This description will be appended to the end of the YT description
     preferred_extension = "mp4" # preferred extension of download and upload
     max_resolution = "360" # maximum resolution of videos to download (incomplete)
-
-    preferred_extension = "mp4" # preferred extension of download and upload
-    max_resolution = "360" # maximum resolution of videos to download (incomplete)
