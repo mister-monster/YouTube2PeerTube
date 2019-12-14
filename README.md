@@ -10,6 +10,14 @@ This tool does not use YouTube APIs. Instead, it subscribes to channels via RSS.
 
 If you need to archive a YouTube channel with lots of existing videos, this tool is not for you. This tool starts mirroring channels from the time they are added to the config and will not mirror all historical videos that exist in a YouTube channel. A tool that provides this functionality is available https://github.com/Chocobozzz/PeerTube/blob/develop/support/doc/tools.md#peertube-import-videosjs
 
+## Installation
+
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
 ## Dependencies
 
 This tool depends on:
