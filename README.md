@@ -12,11 +12,15 @@ If you need to archive a YouTube channel with lots of existing videos, this tool
 
 ## Installation
 
+To install, clone the repository to a directory on your machine. Then, navigate to that directory in a terminal and run:
+
 ```
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
+
+This will create a virtual environment for the tool and install all dependencies required to run.
 
 ## Dependencies
 
@@ -53,8 +57,6 @@ If <delete_videos> is set to True, videos and metadata will be deleted from the 
 ## Running the bot
 
 To run the bot, simply run youtube2peertube.py. The bot will run indefinitely until stopped.
-
-You will need to make sure all dependencies are met.
 
 The first time a channel is found in the config, the most recent videos returned by the youtube RSS endpoint are mirrored, and a new entry is added to channels_timestamps.csv with the timestamp of the last video. Subsequently each channel is checked for an entry in channels_timestamps.csv and only videos later than the last timestamp for the channel's entry are mirrored. The tool decides if it is the first time a channel is found based on whether it has an entry in channels_timestamps.csv. It is designed this way so that the tool can be stopped and restarted without attempting to upload duplicate videos when restarted.
 
