@@ -4,3 +4,6 @@ services:
     build: .
     volumes:
       - ./config.toml:/app/config.toml
+#if you want to use the code which you modify, without rebuilding the whole docker image, you can set it as a volume:
+#      - .:/app
+
