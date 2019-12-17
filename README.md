@@ -64,6 +64,13 @@ After that, the tool polls all channels in config.toml periodically based on the
 
 Any time the configuration is changed, the bot must be restarted.
 
+## Installation & Setup using docker
+An example configuration file is found at example_config.toml. Copy this to config.toml and replace the fields with your information, and add channels as necessary.
+
+To run using docker-compose please run:
+
+`$ docker-compose up`
+
 ## Future improvements
 
 - Auth info for PeerTube channels is currently stored in plaintext in config.toml. This is insecure and needs to be changed.
@@ -80,7 +87,8 @@ Any time the configuration is changed, the bot must be restarted.
 
 See open issues for more details.
 
-Please open issues if you find any problems or if you have a feature request. Pull requests are always welcome, however feature requests and pull requests will not be implemented if they are out of the scope of the project or if they cause issues with other existing features.
+Please open issues if you find any problems or if you have a feature request. Pull requests are always welcome, however feature requests and pull requests will not be implemented if they are out of the scope of the project or if they cause issues 
+with other existing features.
 
 ## Thanks!
 
