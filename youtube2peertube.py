@@ -239,6 +239,11 @@ def pt_http_import(dl_dir, channel_conf, queue_item, access_token, thumb_extensi
     return handle_peertube_result(requests.post(pt_api + "/videos/imports", data=multipart_data, headers=headers))
         
 
+def log_upload_error(yt_url):
+    error_file = open("video_errors.txt", "a")
+    error_file.write(yt_url+"\n")
+    error_file.close()
+    print("error !")
 
 def run_steps(conf):
     # TODO: logging
@@ -296,7 +301,7 @@ def run_steps(conf):
                 if pt_result:
                     print("done !")
                 else:
-                    print("Error !")
+                    log_upload_error(queue_item["link"])
             if delete_videos:
                 print("deleting videos and/or thumbnails...")
                 rmtree(dl_dir + "/" + channel_conf["name"], ignore_errors=True)
