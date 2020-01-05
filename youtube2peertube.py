@@ -146,6 +146,14 @@ def get_file(file_path):
     return (path.basename(file_path), open(path.abspath(file_path), 'rb'),
             mimetypes.types_map[path.splitext(file_path)[1]])
 
+
+def handle_peertube_result(request_result):
+    if request_result.status_code < 300:
+        return True
+    else:
+        print(request_result)
+        return False
+    
 def upload_to_pt(dl_dir, channel_conf, queue_item, access_token, thumb_extension):
     # Adapted from Prismedia https://git.lecygnenoir.info/LecygneNoir/prismedia
     pt_api = channel_conf["peertube_instance"] + "/api/v1"
@@ -184,7 +192,8 @@ def upload_to_pt(dl_dir, channel_conf, queue_item, access_token, thumb_extension
         'Content-Type': multipart_data.content_type,
         'Authorization': "Bearer " + access_token
     }
-    print(requests.post(pt_api + "/videos/upload", data=multipart_data, headers=headers).content)
+    
+    return handle_peertube_result(requests.post(pt_api + "/videos/upload", data=multipart_data, headers=headers))
 
 def pt_http_import(dl_dir, channel_conf, queue_item, access_token, thumb_extension, yt_lang):
     # Adapted from Prismedia https://git.lecygnenoir.info/LecygneNoir/prismedia
@@ -226,7 +235,15 @@ def pt_http_import(dl_dir, channel_conf, queue_item, access_token, thumb_extensi
         'Content-Type': multipart_data.content_type,
         'Authorization': "Bearer " + access_token
     }
-    print(requests.post(pt_api + "/videos/imports", data=multipart_data, headers=headers).content)
+    
+    return handle_peertube_result(requests.post(pt_api + "/videos/imports", data=multipart_data, headers=headers))
+        
+
+def log_upload_error(yt_url,channel_conf):
+    error_file = open("video_errors.csv", "a")
+    error_file.write(channel_conf['name']+","+yt_url+"\n")
+    error_file.close()
+    print("error !")
 
 def run_steps(conf):
     # TODO: logging
@@ -275,12 +292,16 @@ def run_steps(conf):
             for queue_item in queue:
                 if not use_pt_http_import:
                     print("uploading " + queue_item["yt_videoid"] + " to Peertube...")
-                    upload_to_pt(dl_dir, channel_conf, queue_item, access_token, thumb_extension)
-                    print("done.")
+                    pt_result = upload_to_pt(dl_dir, channel_conf, queue_item, access_token, thumb_extension)
+                
                 else:
                     print("mirroring " + queue_item["link"] + " to Peertube using HTTP import...")
-                    pt_http_import(dl_dir, channel_conf, queue_item, access_token, thumb_extension, yt_lang)
-                    print("done.")
+                    pt_result = pt_http_import(dl_dir, channel_conf, queue_item, access_token, thumb_extension, yt_lang)
+
+                if pt_result:
+                    print("done !")
+                else:
+                    log_upload_error(queue_item["link"],channel_conf)
             if delete_videos:
                 print("deleting videos and/or thumbnails...")
                 rmtree(dl_dir + "/" + channel_conf["name"], ignore_errors=True)
