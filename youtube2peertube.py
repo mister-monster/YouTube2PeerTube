@@ -166,22 +166,25 @@ def upload_to_pt(dl_dir, channel_conf, queue_item, access_token, thumb_extension
     # MultipartEncoder does not support list refer
     # https://github.com/requests/toolbelt/issues/190 and
     # https://github.com/requests/toolbelt/issues/205
-    fields = [
-        ("name", queue_item["title"]),
-        ("licence", "1"),
-        ("description", description),
-        ("nsfw", channel_conf["nsfw"]),
-        ("channelId", channel_id),
-        ("originallyPublishedAt", queue_item["published"]),
-        ("category", channel_conf["pt_channel_category"]),
-        ("language", channel_conf["default_lang"]),
-        ("privacy", str(channel_conf["pt_privacy"])),
-        ("commentsEnabled", channel_conf["comments_enabled"]),
-        ("videofile", get_file(video_file)),
-        ("thumbnailfile", get_file(thumb_file)),
-        ("previewfile", get_file(thumb_file)),
-        ("waitTranscoding", 'false')
-    ]
+    try:
+        fields = [
+            ("name", queue_item["title"]),
+            ("licence", "1"),
+            ("description", description),
+            ("nsfw", channel_conf["nsfw"]),
+            ("channelId", channel_id),
+            ("originallyPublishedAt", queue_item["published"]),
+            ("category", channel_conf["pt_channel_category"]),
+            ("language", channel_conf["default_lang"]),
+            ("privacy", str(channel_conf["pt_privacy"])),
+            ("commentsEnabled", channel_conf["comments_enabled"]),
+            ("videofile", get_file(video_file)),
+            ("thumbnailfile", get_file(thumb_file)),
+            ("previewfile", get_file(thumb_file)),
+            ("waitTranscoding", 'false')
+        ]
+    except:
+        return
 
     if channel_conf["pt_tags"] != "":
         fields.append(("tags", "[" + channel_conf["pt_tags"] + "]"))
