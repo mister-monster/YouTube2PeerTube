@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import sys
+import getopt
 import pafy
 import feedparser as fp
 from urllib.request import urlretrieve
@@ -322,5 +324,24 @@ def run(run_once=True):
             run_steps(conf)
             sleep(poll_frequency)
 
+
+def main(argv):
+  run_once=False
+  try:
+    opts, args = getopt.getopt(argv,"ho",["help","once"])
+  except:
+    print("youtube2peertube.py [-o|--once]")
+    sys(exit(2))
+
+  for opt, arg in opts:
+    if opt == '-h':
+      print("youtube2peertube.py [-o|--once]")
+      sys.exit()
+    elif opt in ("-o", "--once"):
+      run_once = True
+
+  run(run_once)
+
+
 if __name__ == "__main__":
-    run(run_once=False)
+  main(sys.argv[1:])
