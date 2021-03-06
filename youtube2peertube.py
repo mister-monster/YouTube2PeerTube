@@ -164,6 +164,7 @@ def upload_to_pt(dl_dir, channel_conf, queue_item, access_token, thumb_extension
     thumb_file = dl_dir + channel_conf["name"] + "/" + queue_item["yt_videoid"] + "." + thumb_extension
     description = channel_conf["description_prefix"] + "\n\n" + queue_item["summary"] + "\n\n" + channel_conf["description_suffix"]
     channel_id = str(get_pt_channel_id(channel_conf))
+    category = utils.set_pt_category(channel_conf["pt_channel_category"])
     # We need to transform fields into tuple to deal with tags as
     # MultipartEncoder does not support list refer
     # https://github.com/requests/toolbelt/issues/190 and
@@ -176,7 +177,7 @@ def upload_to_pt(dl_dir, channel_conf, queue_item, access_token, thumb_extension
             ("nsfw", channel_conf["nsfw"]),
             ("channelId", channel_id),
             ("originallyPublishedAt", queue_item["published"]),
-            ("category", channel_conf["pt_channel_category"]),
+            ("category", category),
             ("language", channel_conf["default_lang"]),
             ("privacy", str(channel_conf["pt_privacy"])),
             ("commentsEnabled", channel_conf["comments_enabled"]),
