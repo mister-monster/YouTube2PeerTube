@@ -6,5 +6,5 @@ pafy==0.5.5
 requests==2.22.0
 requests-toolbelt==0.9.1
 toml==0.10.0
-urllib3==1.25.7
+urllib3==1.25.8
 youtube-dl==2019.11.28
