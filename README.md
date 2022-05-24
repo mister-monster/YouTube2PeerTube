@@ -1,5 +1,13 @@
 # YouTube2PeerTube
 
+IMPORTANT: see https://github.com/Chocobozzz/PeerTube/issues/754 
+
+Peertube appears to be set to implement this type of functionality in the server directly, so as a result, if upon release of this feature it performs all the functions of this script, this script will be depracated.
+
+If for some reason the peertube functionality requires the YouTube API or YouTube credentials, this script will continue to be maintained.
+
+
+
 YouTube2PeerTube is a bot written in Python3 that mirrors YouTube channels to PeerTube channels as videos are released in a YouTube channel.
 
 It checks YouTube channels periodically, when new videos are found, it mirrors them with metadata to PeerTube corresponding peertube channels.
