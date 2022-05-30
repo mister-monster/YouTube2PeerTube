@@ -25,7 +25,7 @@ poll_frequency = 180 # poll frequency in minutes
     default_lang = "english" # default language if YT channel does not have a language, see pt_languages.txt for available languages
     nsfw = "false" # lowercase string, is this channel NSFW?
     comments_enabled = "true" # lowercase string, do you want comments enabled in this channel?
-    pt_privacy = 1 # 1 = public, 2 = unlisted, 3 = private, privacy for entire channel, default public
+    pt_privacy = 1 # 1 = public, 2 = unlisted, 3 = private, 4 = internal, privacy for entire channel, default public
     description_prefix = "" # This description will be added to the beginning of the YT description
     description_suffix = "" # This description will be appended to the end of the YT description
     preferred_extension = "mp4" # preferred extension of download and upload
