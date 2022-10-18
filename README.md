@@ -1,3 +1,5 @@
+This repository is migrated to https://codeberg.org/mister_monster/YouTube2Peertube and any updates will no longer be published here.
+
 # YouTube2PeerTube
 
 IMPORTANT: see https://github.com/Chocobozzz/PeerTube/issues/754 
